@@ -1,1 +1,1 @@
-#conda activate C:\Users\nakul\Malgaze_AI\malgaze_env
+#conda activate scanifyenv
