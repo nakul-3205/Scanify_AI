@@ -3,6 +3,8 @@ import sys
 import numpy as np
 import pandas as pd
 
+
+
 TARGET_COLUMN = "Result"
 PIPELINE_NAME: str = "scanify_pipeline"
 ARTIFACT_DIR: str = "Artifacts"

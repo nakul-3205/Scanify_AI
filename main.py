@@ -3,15 +3,28 @@ from scanify_ai.exception.exception import CustomException
 from scanify_ai.logging.log_config import logger
 import sys
 from scanify_ai.entity.config_entity import DataIngestionConfig,TrainingPipelineConfig
-
+from scanify_ai.components.data_validation import DataValidation
+from scanify_ai.entity.config_entity import DataValidationConfig 
 
 if __name__=='__main__':
     try:
            trainingPipelineConfig=TrainingPipelineConfig()
            dataIngestionconfig=DataIngestionConfig(trainingPipelineConfig)
+           dataValidationconfig=DataValidationConfig(trainingPipelineConfig)
+           
            dataIngestion=DataIngestion(dataIngestionconfig)
            logger.info('dataingestion initiated')
            dataIngestionartifact=dataIngestion.initiate_data_ingestion()
+           logger.info('Data ingestion complete, entering data validation')
+           data_validation=DataValidation(dataIngestionartifact,dataValidationconfig)
+           logger.info('Data Validation Initiated')
+           data_validation_artifact=data_validation.initiate_data_validation()
+           logger.info('Data Validation completed ')
+           print(data_validation_artifact)
+           
+           
+           
+           
            print(dataIngestionartifact)
            
     except Exception as e:
