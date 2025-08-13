@@ -6,7 +6,8 @@ from scanify_ai.entity.config_entity import DataIngestionConfig,TrainingPipeline
 from scanify_ai.components.data_validation import DataValidation
 from scanify_ai.components.data_transformation import DataTransformation
 from scanify_ai.entity.config_entity import DataValidationConfig 
-
+from scanify_ai.components.model_trainer import ModelTrainer
+from scanify_ai.entity.config_entity import ModelTrainerConfig
 if __name__=='__main__':
     try:
         trainingPipelineConfig=TrainingPipelineConfig()
@@ -23,14 +24,20 @@ if __name__=='__main__':
         # print(data_validation_artifact)
         # print(dataIngestionartifact)
         logger.info('Data transformation initiated')
-        
+
         data_transformation_config=DataTransformationConfig(trainingPipelineConfig)
         data_transformation=DataTransformation(data_validation_artifact,data_transformation_config)
         data_transformation_artifact=data_transformation.initiate_data_transformation()
         print(data_transformation,data_transformation_artifact)
         logger.info('Data transformation completed')
-        
-        
+
+        logger.info("Model Training sstared")
+        model_trainer_config=ModelTrainerConfig(trainingPipelineConfig)
+        model_trainer=ModelTrainer(model_trainer_config=model_trainer_config,data_transformation_artifact=data_transformation_artifact)
+        model_trainer_artifact=model_trainer.initiate_model_trainer()
+
+        logger.info("Model Training artifact created")
+
 
     except Exception as e:
         raise CustomException(e,sys)
