@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/nakul/Scanify_AI/mlruns/0/models/m-bfda2af0c7f648eba0ea313ffd49e0d4/artifacts
+creation_timestamp: 1755075716508
+experiment_id: '0'
+last_updated_timestamp: 1755075727474
+model_id: m-bfda2af0c7f648eba0ea313ffd49e0d4
+model_type: null
+name: model
+source_run_id: c6589aa0e4454bfdb75fffbc3baae0dd
+status: 2
+status_message: null

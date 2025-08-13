@@ -17,6 +17,7 @@ dependencies = [
   "certifi"
   "pyaml"
   "dill"
+  "mlflow"
 ]
 
 [build-system]
