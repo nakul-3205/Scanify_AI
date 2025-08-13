@@ -208,5 +208,7 @@ __marimo__/
 
 
 
-malgaze_env/
+scanify_env/
 logs/
+Artifacts/
+mlruns/
