@@ -17,7 +17,11 @@ from sklearn.ensemble import (
     GradientBoostingClassifier,
     RandomForestClassifier,
 )
+from scanify_ai.constant.training_pipeline import MODEL_TRAINER_TRAINED_MODEL_NAME
 import mlflow
+import dagshub
+dagshub.init(repo_owner='nakul-3205', repo_name='Scanify_AI', mlflow=True)
+mlflow.set_tracking_uri('https://dagshub.com/nakul-3205/Scanify_Ai.mlflow')
 
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig,data_transformation_artifact:DataTransformationArtifact):
@@ -27,7 +31,6 @@ class ModelTrainer:
 
         except Exception as e:
             raise CustomException(e,sys)
-
     def track_mlflow(self,best_model,classificationmetric):
         try:
             with mlflow.start_run():
@@ -37,8 +40,9 @@ class ModelTrainer:
                 mlflow.log_metric("f1_score",f1_score)
                 mlflow.log_metric("precision",precision)
                 mlflow.log_metric("recall_score",recall_score)
-                mlflow.sklearn.log_model(best_model,"model")
-                
+                # mlflow.sklearn.log_model(best_model,"model")
+                model_path="final_model/model.pkl"
+                mlflow.log_artifact(model_path, artifact_path="model")
 
         except Exception as e:
             raise CustomException(e,sys)
@@ -113,7 +117,7 @@ class ModelTrainer:
 
             self.track_mlflow(best_model,classification_train_metric)
             self.track_mlflow(best_model,classification_test_metric)
-            
+
             return model_trainer_artifact
 
         except Exception as e:
